@@ -2,99 +2,58 @@
 
 ## Overview
 
-This project presents the development of code that numerically solves the *Laplace* and *Poisson* equations on a two-dimensional rectangular domain, applying various boundary conditions (Dirichlet, Neumann, and Periodic).  
+This project develops code to numerically solve the *Laplace* and *Poisson* equations on a two-dimensional rectangular domain, applying various boundary conditions (Dirichlet, Neumann, and Periodic).  
 
-The implemented method is based on the Gauss-Seidel iterative scheme enhanced by a relaxation factor (ω) to accelerate convergence.
+The solution method is the Gauss-Seidel iterative scheme with a relaxation factor to speed up convergence.
 
 This work was completed as part of the **Computational Physics** course at the **Physics Department, University of Crete**.
 
----
-
 ## Problem Statement
 
-We solve the following equations:
-
-- *Laplace equation*:
-
-  $$
-  \nabla^2 \phi = 0
-  $$
-
-- *Poisson equation*:
-
-  $$
-  \nabla^2 \phi = -\frac{\rho}{\epsilon}
-  $$
-
-where \( \phi \) is the potential, \( \rho \) is the charge density, and \( \epsilon \) is the permittivity.
-
----
+We solve the Laplace and Poisson equations where the potential, charge density, and permittivity are the main variables.
 
 ## Methodology
 
 ### Grid Setup
 
-- The domain is discretized using a uniform rectangular grid with spacing \( h \) and \( N \times N \) points.
-- Coordinates for each grid point \((i,j)\) are:
-
-  $$
-  (x_i, y_j) = ((i-1)h, (j-1)h)
-  $$
+- The domain is discretized using a uniform rectangular grid with spacing and a fixed number of points.
+- Each grid point is assigned coordinates based on its position in the grid.
 
 ### Discretization
 
-Using central differences, the Poisson equation is approximated as:
+Using the central difference scheme, the Poisson equation is discretized to approximate the potential at each grid point.
 
-$$
-\phi_{i,j} = \frac{1}{4} \left( \phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} + h^2 \frac{\rho_{i,j}}{\epsilon} \right)
-$$
-
-The total energy of the system is computed via the corresponding discrete formulation.
+The total energy is computed using a corresponding discrete form.
 
 ### Boundary Conditions
 
-- **Dirichlet**: Fixed potential values on the domain boundaries (e.g., \( \phi = 0 \) at edges).
-- **Neumann and Periodic**: Implemented to model scenarios with constant flux or repeating boundaries.
+- **Dirichlet:** Fixed potential values on the boundaries (e.g., zero potential at edges).
+- **Neumann and Periodic:** Also implemented to model constant flux or periodic repetition at the boundaries.
 
 ### Gauss-Seidel Iterative Solver
 
-- Initialize \( \phi \) with an initial guess.
-- Update values iteratively using:
-
-  $$
-  \phi_{i,j}^{(new)} = (1-\omega)\phi_{i,j}^{(old)} + \frac{\omega}{4} \left( \phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} + h^2 \frac{\rho_{i,j}}{\epsilon} \right)
-  $$
-
-- Continue iterations until the maximum change between successive updates is less than a specified tolerance (e.g., \( 10^{-5} \)).
-
----
+- Initialize the potential with an initial guess.
+- Update values iteratively with relaxation to accelerate convergence.
+- Iterate until the maximum change between successive values is below a specified threshold.
 
 ## Results
 
-- Solutions were computed for various cases corresponding to the assignment's questions.
-- Results are documented in numbered sections from 1 to 11 within the notebook.
-
----
+- Solutions for various cases corresponding to the assignment questions are presented.
+- Results are documented in numbered sections from 1 to 11 inside the notebook.
 
 ## Conclusion
 
-- The project successfully solves the Laplace and Poisson equations with multiple boundary conditions.
-- The relaxation factor \( \omega \) strongly influences convergence speed, with optimal values found in \( 1 < \omega < 2 \).
-- Dipole placement and grid resolution significantly impact the calculated energy and accuracy of the solution.
-
----
+- The Laplace and Poisson equations were successfully solved with multiple boundary conditions.
+- The relaxation factor significantly affects convergence speed, with optimal values typically between 1 and 2.
+- Dipole position and grid resolution strongly influence the computed energy and solution accuracy.
 
 ## Usage
 
-This repository contains a Jupyter Notebook that runs all computations and visualizations.  
-To run the notebook, install the required Python packages (e.g., NumPy, Matplotlib) and execute the notebook in an environment supporting Jupyter.
-
----
+This repository contains a Jupyter Notebook performing all computations and visualizations.  
+To run it, install required Python packages (e.g., NumPy, Matplotlib) and open the notebook in a Jupyter-supported environment.
 
 ## Acknowledgements
 
 Developed by **Giorgos Kritopoulos**  
 Computational Physics course, Physics Department, University of Crete  
 Date: March 8, 2025
-
----
